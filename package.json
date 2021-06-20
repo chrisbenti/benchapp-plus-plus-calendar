@@ -1,0 +1,17 @@
+{
+  "name": "add-travel-time",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ical-js-parser": "^0.0.7",
+    "moment-timezone": "^0.5.33",
+    "node-fetch": "^2.6.1"
+  },
+  "type": "module"
+}
