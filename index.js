@@ -9,6 +9,7 @@ const getSourceCal = async () =>
   ).text();
 
 const resultJSON = ICalParser.default.toJSON(await getSourceCal());
+const newEvents = [];
 
 resultJSON.events.forEach((event) => {
   const drive = {
@@ -22,8 +23,8 @@ resultJSON.events.forEach((event) => {
       value: moment(event.dtstart.value).subtract(30, "m").utc().format(),
     },
     summary: "Drive to " + event.location.split(" - ")[0],
-    location: null,
-    description: null,
+    location: "",
+    description: "",
   };
 
   const dress = {
@@ -39,9 +40,12 @@ resultJSON.events.forEach((event) => {
     summary: "Dress in " + event.description.split("Notes: ")[1],
     description: null,
   };
-  resultJSON.events.push(drive);
-  resultJSON.events.push(dress);
+  newEvents.push(drive);
+  newEvents.push(dress);
+  newEvents.push(event);
 });
+
+resultJSON.events = newEvents;
 
 const resultIcal = ICalParser.default.toString(resultJSON);
 
