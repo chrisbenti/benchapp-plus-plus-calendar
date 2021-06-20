@@ -11,7 +11,8 @@
   "dependencies": {
     "ical-js-parser": "^0.0.7",
     "moment-timezone": "^0.5.33",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "uuid": "^8.3.2"
   },
   "type": "module"
 }

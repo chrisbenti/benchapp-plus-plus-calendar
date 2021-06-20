@@ -2,6 +2,7 @@ import fetch from "node-fetch";
 import ICalParser from "ical-js-parser";
 import moment from "moment-timezone";
 import fs from "fs";
+import { v4 as uuidv4 } from "uuid";
 
 const getSourceCal = async () =>
   await (
@@ -27,6 +28,7 @@ resultJSON.events
       summary: "Drive to " + event.location.split(" - ")[0],
       location: "",
       description: "",
+      uid: uuidv4(),
     };
 
     const dress = {
@@ -41,6 +43,7 @@ resultJSON.events
       },
       summary: "Dress in " + event.description.split("Notes: ")[1],
       description: "",
+      uid: uuidv4(),
     };
     newEvents.push(drive);
     newEvents.push(dress);
