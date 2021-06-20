@@ -11,39 +11,41 @@ const getSourceCal = async () =>
 const resultJSON = ICalParser.default.toJSON(await getSourceCal());
 const newEvents = [];
 
-resultJSON.events.forEach((event) => {
-  const drive = {
-    ...event,
-    dtstart: {
-      ...event.dtstart,
-      value: moment(event.dtstart.value).subtract(1, "h").utc().format(),
-    },
-    dtend: {
-      ...event.dtstart,
-      value: moment(event.dtstart.value).subtract(30, "m").utc().format(),
-    },
-    summary: "Drive to " + event.location.split(" - ")[0],
-    location: "",
-    description: "",
-  };
+resultJSON.events
+  .map((event) => ({ ...event, url: event.url.value }))
+  .forEach((event) => {
+    const drive = {
+      ...event,
+      dtstart: {
+        ...event.dtstart,
+        value: moment(event.dtstart.value).subtract(1, "h").utc().format(),
+      },
+      dtend: {
+        ...event.dtstart,
+        value: moment(event.dtstart.value).subtract(30, "m").utc().format(),
+      },
+      summary: "Drive to " + event.location.split(" - ")[0],
+      location: "",
+      description: "",
+    };
 
-  const dress = {
-    ...event,
-    dtstart: {
-      ...event.dtstart,
-      value: moment(event.dtstart.value).subtract(30, "m").utc().format(),
-    },
-    dtend: {
-      ...event.dtstart,
-      value: event.dtstart.value,
-    },
-    summary: "Dress in " + event.description.split("Notes: ")[1],
-    description: null,
-  };
-  newEvents.push(drive);
-  newEvents.push(dress);
-  newEvents.push(event);
-});
+    const dress = {
+      ...event,
+      dtstart: {
+        ...event.dtstart,
+        value: moment(event.dtstart.value).subtract(30, "m").utc().format(),
+      },
+      dtend: {
+        ...event.dtstart,
+        value: event.dtstart.value,
+      },
+      summary: "Dress in " + event.description.split("Notes: ")[1],
+      description: "",
+    };
+    newEvents.push(drive);
+    newEvents.push(dress);
+    newEvents.push(event);
+  });
 
 resultJSON.events = newEvents;
 
