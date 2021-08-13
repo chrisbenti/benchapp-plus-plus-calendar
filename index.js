@@ -25,7 +25,7 @@ resultJSON.events
         ...event.dtstart,
         value: moment(event.dtstart.value).subtract(30, "m").utc().format(),
       },
-      summary: "Drive to " + event.location.split(" - ")[0],
+      summary: event.location && "Drive to " + event.location.split(" - ")[0],
       location: "",
       description: "",
       uid: uuidv4(),
@@ -41,7 +41,9 @@ resultJSON.events
         ...event.dtstart,
         value: event.dtstart.value,
       },
-      summary: "Dress in " + event.description.split("Notes: ")[1],
+      summary:
+        event.description &&
+        "Dress in " + event.description.split("Notes: ")[1],
       description: "",
       uid: uuidv4(),
     };
