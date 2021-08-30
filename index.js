@@ -9,7 +9,13 @@ const getSourceCal = async () =>
     await fetch("http://ics.benchapp.com/eyJwbGF5ZXJJZCI6NjMwODZ9")
   ).text();
 
-const resultJSON = ICalParser.default.toJSON(await getSourceCal());
+let resultJSON;
+try {
+  resultJSON = ICalParser.default.toJSON(await getSourceCal());
+} catch {
+  console.log("issue with source ical");
+  process.exit();
+}
 const newEvents = [];
 
 resultJSON.events
