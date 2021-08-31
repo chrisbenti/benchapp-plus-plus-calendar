@@ -14,7 +14,7 @@ try {
   resultJSON = ICalParser.default.toJSON(await getSourceCal());
 } catch {
   console.log("issue with source ical");
-  process.exit();
+  process.exit(0);
 }
 const newEvents = [];
 
